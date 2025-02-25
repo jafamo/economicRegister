@@ -74,3 +74,5 @@
 /.idea/vcs.xml
 /.idea/symfony2.xml
 /.idea/git_toolbox_blame.xml
+/.idea/git_toolbox_prj.xml
+/htdocs/
