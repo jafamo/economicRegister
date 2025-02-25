@@ -2,8 +2,11 @@ api_platform:
     title: Hello API Platform
     version: 1.0.0
     defaults:
-        stateless: true
-        cache_headers:
-            vary: ['Content-Type', 'Authorization', 'Origin']
+      security: "is_granted('ROLE_USER')"
+      stateless: true
+      cache_headers:
+        vary: [ 'Content-Type', 'Authorization', 'Origin' ]
     formats:
       jsonapi: [ 'application/vnd.api+json' ]
+
+
