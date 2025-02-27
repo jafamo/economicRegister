@@ -3,3 +3,7 @@ controllers:
         path: ../src/Infrastructure/Controller/
         namespace: App\Infrastructure\Controller
     type: attribute
+
+api_login_check:
+  path: /api/login
+  methods: [ 'POST' ]
