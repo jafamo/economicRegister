@@ -3,17 +3,16 @@
 namespace App\Domain\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Put;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Domain\Validation\UniqueCategoryName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: "categories")]
+#[ORM\Table(name: "categories", uniqueConstraints: [
+    new ORM\UniqueConstraint(name: "unique_category_per_parent", columns: ["name", "parent_id"])
+])]
 #[ApiResource(
     formats: ['json' => 'application/json', 'jsonld' => 'application/ld+json', 'jsonapi' => 'application/vnd.api+json']
 )]
@@ -24,6 +23,8 @@ class Category
     #[ORM\Column(type: "integer")]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[UniqueCategoryName]
     #[ORM\Column(type: "string", length: 255)]
     private string $name;
 
