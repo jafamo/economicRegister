@@ -1,12 +1,17 @@
 api_platform:
-    title: Hello API Platform
+    title: Economic Register
     version: 1.0.0
-    defaults:
-      security: "is_granted('ROLE_USER')"
-      stateless: true
-      cache_headers:
-        vary: [ 'Content-Type', 'Authorization', 'Origin' ]
     formats:
+      json: [ 'application/json' ]
+      jsonld: [ 'application/ld+json' ]
       jsonapi: [ 'application/vnd.api+json' ]
-
-
+      defaults:
+        pagination_items_per_page: 20
+    defaults:
+#      security: "is_granted('ROLE_USER')"
+      stateless: true
+#      cache_headers:
+#        vary: [ 'Content-Type', 'Authorization', 'Origin' ]
+    mapping:
+      paths:
+        - '%kernel.project_dir%/src/Domain/Entity'

@@ -25,5 +25,13 @@ services:
       resource: '../src/Infrastructure/Controller'
       tags: [ 'controller.service_arguments' ]
 
+#    App\Infrastructure\Symfony\Form\DataTransformer:
+#        arguments: [ '@doctrine.orm.entity_manager' ]
+#        tags: [ 'api_platform.data_transformer' ]
+    App\Domain\Validation\UniqueCategoryNameValidator:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+        tags: [ 'validator.constraint_validator' ]
+
   # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
