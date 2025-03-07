@@ -1,0 +1,60 @@
+services:
+  php:
+    build:
+      context: docker/php
+      dockerfile: Dockerfile
+    container_name: economic-app
+    user: www-data
+    volumes:
+      - ./economicRegister:/var/www/economicRegister
+    ports:
+      - "9011:9011"
+    environment:
+      - SYMFONY_CLI_VERSION=${SYMFONY_CLI_VERSION}
+    restart: always
+
+  mariadb:
+    image: mariadb:${MARIADB_VERSION}
+    container_name: economic-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3312:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/mysql/logs/:/var/log/mysql
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: economic-nginx
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./economicRegister:/var/www/economicRegister
+      - ./docker/nginx/logs/nginx:/var/log/nginx
+    ports:
+      - "9016:80"
+    depends_on:
+      - php
+    restart: always
+
+#  mailtrap:
+#    image: mailhog/mailhog
+#    container_name: clinical-smtp
+#    environment:
+#      - MAIL_DOMAIN=${MAIL_DOMAIN}
+#      - MAIL_RELAY_HOST=${MAIL_RELAY_HOST}  # Cambia a tu servicio SMTP si usas uno externo
+#      - MAIL_RELAY_PORT=${MAIL_RELAY_PORT}
+#      - MAIL_RELAY_USER=${MAIL_RELAY_USER}  # Usar tus credenciales SMTP si es necesario
+#      - MAIL_RELAY_PASSWORD=${MAIL_RELAY_PASSWORD}
+#      - MAILCATCHER_HTTP_PORT="1080"
+#    restart: always
+#    ports:
+#      - "1025:1025"  # SMTP
+#      - "8025:8025"  # Interfaz web de Mailhog (alternativa a Mailtrap)
+
+volumes:
+  db_data:
