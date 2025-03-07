@@ -50,29 +50,29 @@
 
 # Embedded web-server pid file
 /.web-server-pid
-/docker/nginx/logs/
-/docker/mysql/logs/mariadb/
-/.composer/
-/.symfony5/
-/clinicalResource/vendor
-/.bash_history
-/docker/nginx/logs/nginx/access.log
-/docker/nginx/logs/nginx/error.log
-/.gitconfig
-/docker/nginx/logs/nginx/
-/.idea/dataSources.xml
-/clinicalResource/env.local
-/.idea/clinicalResource.iml
 
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+###< symfony/framework-bundle ###
 
-# environment docker
-./.env
-.env
-/.env
-/.idea/.gitignore
-/.idea/economiRegisterBack.iml
-/.idea/git_toolbox_blame.xml
-/.idea/git_toolbox_prj.xml
-/.idea/modules.xml
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+
+###<devilbox ###
+/htdocs/
+###> devilbox ###
+
+/.env.dev
+/.idea/workspace.xml
 /.idea/php.xml
 /.idea/vcs.xml
+/.idea/symfony2.xml
+/.idea/git_toolbox_blame.xml
+/.idea/git_toolbox_prj.xml
+/.idea/dataSources/6e233841-5f32-4286-a78a-a9ea44a140fd.xml
